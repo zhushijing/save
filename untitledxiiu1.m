@@ -95,6 +95,7 @@ bar(1:length(a),b)
 set(gca,'xticklabel',a)    
  xlswrite('results',ans);%输出为excel文件
 toc
+set(handles.text_sart_time,'string',toc);
 
 % --- Executes on button press in close.
 function close_Callback(hObject, eventdata, handles)
@@ -143,7 +144,7 @@ msgbox(sprintf('文件中共有%d个单词%s',n,str{1}));
 end
 end
 toc
-
+set(handles.text_survey_time,'string',toc);
 
 % --- Executes on button press in row.
 function row_Callback(hObject, eventdata, handles)
@@ -168,3 +169,5 @@ fclose(fid); % 及时关闭文件是个好习惯
 row
 
 toc
+set(handles.text_row,'string',row);
+set(handles.text_row_time,'string',toc);
