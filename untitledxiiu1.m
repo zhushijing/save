@@ -79,21 +79,21 @@ function start_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 tic
-word=fileread('C:\Users\ÖìÊ¯¾°\Desktop\234.txt'); %¶ÁÈëÈ«ÎÄ
-word=regexprep(word,'\W',' '); %²»ÊÇ×Ö·ûµÄ£¬¶¼×ª»»Îª¿Õ¸ñ¡£Ö÷ÒªÊÇÈ¥³ı±êµã·ûºÅ
-word=lower(word); %±ä³ÉĞ¡Ğ´
-words=regexp(word,' ','split')'; %¸ù¾İ¿Õ¸ñ·Ö¸ôÎªµ¥´Êcell
-%ÖÁ´ËÃ¿¸öµ¥´Ê¶¼ÄÃ³öÀ´ÁË
-rank = tabulate(words); %rankÊÇÈıÁĞÏòÁ¿£¬°üÀ¨Ãû³Æ£¬³öÏÖ´ÎÊıºÍ°Ù·Ö±È
-ans=sortrows(rank,-3); %Ö»¸ù¾İµÚ¶şÁĞ½øĞĞÅÅĞò -2±íÊ¾½µĞò
+word=fileread('234.txt'); %è¯»å…¥å…¨æ–‡
+word=regexprep(word,'\W',' '); %ä¸æ˜¯å­—ç¬¦çš„ï¼Œéƒ½è½¬æ¢ä¸ºç©ºæ ¼ã€‚ä¸»è¦æ˜¯å»é™¤æ ‡ç‚¹ç¬¦å·
+word=lower(word); %å˜æˆå°å†™
+words=regexp(word,' ','split')'; %æ ¹æ®ç©ºæ ¼åˆ†éš”ä¸ºå•è¯cell
+%è‡³æ­¤æ¯ä¸ªå•è¯éƒ½æ‹¿å‡ºæ¥äº†
+rank = tabulate(words); %rankæ˜¯ä¸‰åˆ—å‘é‡ï¼ŒåŒ…æ‹¬åç§°ï¼Œå‡ºç°æ¬¡æ•°å’Œç™¾åˆ†æ¯”
+ans=sortrows(rank,-3); %åªæ ¹æ®ç¬¬äºŒåˆ—è¿›è¡Œæ’åº -2è¡¨ç¤ºé™åº
 a=ans;
 b=ceil(rand(1,5)*20);
-% ÅÅĞò£¬»æÍ¼£¬È»ºóĞŞ¸ÄTickLable
+% æ’åºï¼Œç»˜å›¾ï¼Œç„¶åä¿®æ”¹TickLable
 [b,idx]=sort(b(:),1,'descend');
 a=a(idx);
 bar(1:length(a),b)
 set(gca,'xticklabel',a)    
- xlswrite('results',ans);%Êä³öÎªexcelÎÄ¼ş
+ xlswrite('results',ans);%è¾“å‡ºä¸ºexcelæ–‡ä»¶
 toc
 
 % --- Executes on button press in close.
@@ -113,7 +113,7 @@ tic
 fid=fopen('*.txt');
 
 N=length(fid);
-c='ÖĞ¹ú';%Òª²éÕÒµÄ×Ö·û
+c='ä¸­å›½';%è¦æŸ¥æ‰¾çš„å­—ç¬¦
 k=length(c);
 count=0;
 for i=1:N-k+1
@@ -121,7 +121,7 @@ for i=1:N-k+1
         count=count+1;
     end
 end
-fprintf('ÄãµÄ×Ö·û´®Àï×Ü¹²ÓĞ%d¸ö%s\n',count,c)
+fprintf('ä½ çš„å­—ç¬¦ä¸²é‡Œæ€»å…±æœ‰%dä¸ª%s\n',count,c)
 
 toc
 % --- Executes on button press in survey.
@@ -130,16 +130,16 @@ function survey_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 tic
-[fn,pn]=uigetfile({'*.txt'},'Ñ¡ÔñÒ»¸öÎÄ¼ş');
+[fn,pn]=uigetfile({'*.txt'},'é€‰æ‹©ä¸€ä¸ªæ–‡ä»¶');
 if fn~=0
 f=fopen(strcat(pn,fn),'r');
 data=fread(f,inf,'*char');
 fclose(f);
 data=data';
-str=inputdlg('ÇëÊäÈëÒªÍ³¼ÆµÄµ¥´Ê','¶Ô»°¿ò',1);
+str=inputdlg('è¯·è¾“å…¥è¦ç»Ÿè®¡çš„å•è¯','å¯¹è¯æ¡†',1);
 if ~isempty(str)
 n=length(regexp(data,strcat('(?<=\W+)',str{1},'(?=\W+)')));
-msgbox(sprintf('ÎÄ¼şÖĞ¹²ÓĞ%d¸öµ¥´Ê%s',n,str{1}));
+msgbox(sprintf('æ–‡ä»¶ä¸­å…±æœ‰%dä¸ªå•è¯%s',n,str{1}));
 end
 end
 toc
@@ -151,19 +151,19 @@ function row_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 tic
-fid=fopen('234.txt'); % ´ò¿ªÎÄ¼ş
+fid=fopen('234.txt'); % æ‰“å¼€æ–‡ä»¶
 
 row=0;
 
-while ~feof(fid) % ÊÇ·ñ¶ÁÈ¡µ½ÎÄ¼ş½áÎ²
+while ~feof(fid) % æ˜¯å¦è¯»å–åˆ°æ–‡ä»¶ç»“å°¾
  
-[~]=fgets(fid); % »òÕßfgetl
+[~]=fgets(fid); % æˆ–è€…fgetl
 
-row=row+1; % ĞĞÊıÀÛ¼Ó
+row=row+1; % è¡Œæ•°ç´¯åŠ 
 
 end
 
-fclose(fid); % ¼°Ê±¹Ø±ÕÎÄ¼şÊÇ¸öºÃÏ°¹ß
+fclose(fid); % åŠæ—¶å…³é—­æ–‡ä»¶æ˜¯ä¸ªå¥½ä¹ æƒ¯
 
 row
 
