@@ -111,20 +111,18 @@ function sum_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 tic
 
-fid=fopen('*.txt');
-
-N=length(fid);
-c='中国';%要查找的字符
-k=length(c);
-count=0;
-for i=1:N-k+1
-    if(strcmp(s(i:i+k-1),c))
-        count=count+1;
-    end
-end
-fprintf('你的字符串里总共有%d个%s\n',count,c)
-
+word=fileread('234.txt'); %读入全文word=regexprep(word,'\W',''); %不是字符的，都转换为空格。主要是去除标点符号
+word=lower(word); %变成小写
+words=regexp(word,' ','split')'; %根据空格分隔为单词cell
+%至此每个单词都拿出来了
+rank = tabulate(words); %rank是三列向量，包括名称，出现次数和百分比
+ans=sortrows(rank,-3); %只根据第二列进行排序 -2表示降序
+a=ans;
+b=ceil(rand(1,5)*20);
+N=length(rank)
 toc
+set(handles.text_sum_time,'string',toc);
+set(handles.text_sum,'string',N);
 % --- Executes on button press in survey.
 function survey_Callback(hObject, eventdata, handles)
 % hObject    handle to survey (see GCBO)
