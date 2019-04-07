@@ -79,21 +79,19 @@ function start_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 tic
-word=fileread('234.txt'); %读入全文
-word=regexprep(word,'\W',' '); %不是字符的，都转换为空格。主要是去除标点符号
-word=lower(word); %变成小写
-words=regexp(word,' ','split')'; %根据空格分隔为单词cell
-%至此每个单词都拿出来了
-rank = tabulate(words); %rank是三列向量，包括名称，出现次数和百分比
-ans=sortrows(rank,-3); %只根据第二列进行排序 -2表示降序
+word=fileread('234.txt'); 
+word=regexprep(word,'\W',' '); 
+word=lower(word); 
+words=regexp(word,' ','split')'; 
+rank = tabulate(words); 
+ans=sortrows(rank,-3); 
 a=ans;
 b=ceil(rand(1,5)*20);
-% 排序，绘图，然后修改TickLable
 [b,idx]=sort(b(:),1,'descend');
 a=a(idx);
 bar(1:length(a),b)
 set(gca,'xticklabel',a)    
- xlswrite('results',ans);%输出为excel文件
+ xlswrite('results',ans);
 toc
 set(handles.text_sart_time,'string',toc);
 
